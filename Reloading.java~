@@ -1,0 +1,26 @@
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import javax.swing.*;
+
+/**
+ * This is a message that pops up ontop of your character when you are relaoding
+ * 
+ * @author Eric Faltermeier 
+ * @version 12/9/2017
+ */
+public class Reloading extends Actor
+{
+    Human hooman;
+    public Reloading()
+    {
+        setImage (new GreenfootImage("Reloading", 15, Color.BLACK, Color.WHITE));
+    }
+
+    public void act(Human hooman) 
+    {
+        if (Human.ammo == 0)
+        {
+            setLocation(hooman.getX(), hooman.getY() +30);
+        }
+
+    }    
+}

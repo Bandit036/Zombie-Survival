@@ -1,0 +1,42 @@
+import greenfoot.*;
+import javax.swing.JOptionPane;
+/**
+ * You are the Human, the last survivor of the zombie apocalypse. In This level you are at your home camp and you are under attack! Fend off the impending horde for as long as possible and mabye survive for another day 
+ * 
+ * @author Eric Faltermeier
+ * @date 12/4/2017
+ * 
+ * I got the picure of grass from Textures101.com
+ */
+public class ZombieWorld extends World
+{
+
+    /**
+     * Constructor for objects of class ZombieWorld.
+     * 
+     */
+    public ZombieWorld()
+    {    
+        super(1600, 900, 1);
+        showInstructions();
+        prepare();
+    }
+
+    public void prepare()
+    {
+        addObject(new TestVariable(), 800, 450);
+        addObject(new Reloading(), 55, 85);
+        addObject(new Human(), 70, 167);
+        addObject(new Zombie(), 1500, 843);
+        addObject(new Zombie(), 1400, 843);
+        addObject(new Zombie(), 1300, 843);
+        addObject(new Zombie(), 1200, 843);
+        addObject(new Zombie(), 1100, 843);
+
+    }
+
+    public void showInstructions()
+    {
+        JOptionPane.showMessageDialog(null, "You are the last Human alive and you have to survive!Use WSAD to move around and space bar to shoot");
+    }
+}

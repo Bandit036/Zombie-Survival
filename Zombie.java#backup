@@ -1,0 +1,63 @@
+import greenfoot.*;
+
+/**
+ * I got the picture of a zombie from piq.codeus.net
+ * This is the basic zombie in the game it constantly goes twords the human and can be taken out with a single shot
+ * @author Eric Faltermeier 
+ * @version 12/9/2017
+ */
+public class Zombie extends Enemy
+{
+    private int life;
+    public Zombie()
+    // This sets the scale of the image "ZombieRight"
+    {       
+        GreenfootImage myImage = getImage();
+        int myNewWidth = (int)myImage.getWidth()/3;
+        int myNewHeight = (int)myImage.getHeight()/3;
+        myImage.scale(myNewWidth,myNewHeight);
+        life = 1;
+    }
+
+    public void act() 
+    {
+        eatBrains();
+        chase();
+        die();
+    }  
+
+    public void chase()
+    // This makes the zombie acively chase after the player 
+    {
+        Human human = (Human) getWorld().getObjects(Human.class).get(0);  
+        turnTowards(human.getX(), human.getY()); 
+        move(1);
+    }
+
+    public void eatBrains()
+    // This makes it so if the zombie touches the player he eats them
+    {
+        if (isTouching (Human.class))
+        {
+            removeTouching(Human.class);
+            Greenfoot.stop();
+        }
+    }
+    
+    public void die()
+    // This makes it so the zombie, instead of instantly dieing from a gunshot, it removes a life and if life is less than or equal to 0 it dies
+    {
+        if (isTouching (Bullet.class))
+        {
+            removeTouching(Bullet.class);
+            life--;
+        }
+        
+        if (life <= 0)
+        {
+            getWorld().removeObject(this);
+            Human.money = Human.money +50;
+            Bullet.killCount++;
+        }
+    }
+}

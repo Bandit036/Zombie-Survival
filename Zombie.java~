@@ -1,0 +1,58 @@
+import greenfoot.*;
+
+/**
+ * I got the picture of a zombie from piq.codeus.net
+ * This is the basic zombie in the game it constantly goes twords the human and can be taken out with a single shot
+ * @author Eric Faltermeier 
+ * @version 12/9/2017
+ */
+public class Zombie extends Actor
+{
+    private static GreenfootImage zombieRightImage= new GreenfootImage("ZombieRight.png");
+    private static GreenfootImage zombieLeftImage= new GreenfootImage("ZombieLeft.png");
+    static int zombieRotation;
+    public Zombie()
+    {       
+        GreenfootImage myImage = getImage();
+        int myNewWidth = (int)myImage.getWidth()/3;
+        int myNewHeight = (int)myImage.getHeight()/3;
+        myImage.scale(myNewWidth,myNewHeight);
+        zombieRotation = getRotation();
+    }
+
+    public void act() 
+    {
+        turn();
+        chase();
+        eatBrains();
+    }  
+
+    public void chase()
+    {
+        Human human = (Human) getWorld().getObjects(Human.class).get(0);  
+        turnTowards(human.getX(), human.getY()); 
+        move(1);
+    }
+
+    public void eatBrains()
+    {
+        if (isTouching (Human.class))
+        {
+            removeTouching(Human.class);
+            Greenfoot.stop();
+        }
+    }
+
+    public void turn()
+    {
+        if (zombieRotation >= 180)
+        {
+            setImage(zombieLeftImage);
+        }
+        else if(zombieRotation <180)
+        {
+            setImage(zombieRightImage);
+        }
+    }
+
+}
